@@ -35,6 +35,16 @@ android {
         }
     }
 
+    if (project.hasProperty('storeFile') &&
+            project.hasProperty('storePassword') &&
+            project.hasProperty('keyPassword')) {
+        android.signingConfigs.release.storeFile = file(storeFile)
+        android.signingConfigs.release.storePassword = storePassword
+        android.signingConfigs.release.keyPassword = keyPassword
+    } else {
+        buildTypes.release.signingConfig = null
+    }
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
